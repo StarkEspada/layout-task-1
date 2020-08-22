@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Report Abuse</title>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit' async defer></script>
+	<style>
+		*{
+			box-sizing: border-box;
+		}
+		html {
+		  font-family: 'Roboto', sans-serif;
+		  line-height: 1.15;
+		  -ms-text-size-adjust: 100%;
+		  -webkit-text-size-adjust: 100%;
+		}
+		body {
+		  margin: 0;
+		}
+		html,
+		body{
+			width: 100%;
+			height: 100%;
+		}
+		article,
+		aside,
+		footer,
+		header,
+		nav,
+		section {
+		  display: block;
+		}
+		h1 {
+		  font-size: 2em;
+		  margin: 0.67em 0;
+		}
+		figcaption,
+		figure,
+		main {
+		  display: block;
+		}
+		figure {
+		  margin: 1em 40px;
+		}
+		hr {
+		  box-sizing: content-box;
+		  height: 0;
+		  overflow: visible;
+		}
+		pre {
+		  font-family: monospace, monospace;
+		  font-size: 1em;
+		}
+		a {
+		  background-color: transparent;
+		  -webkit-text-decoration-skip: objects;
+		}
+		a:active,
+		a:hover {
+		  outline-width: 0;
+		}
+		abbr[title] {
+		  border-bottom: none;
+		  text-decoration: underline;
+		  text-decoration: underline dotted;
+		}
+		b,
+		strong {
+		  font-weight: inherit;
+		}
+		b,
+		strong {
+		  font-weight: bolder;
+		}
+		code,
+		kbd,
+		samp {
+		  font-family: monospace, monospace;
+		  font-size: 1em;
+		}
+		dfn {
+		  font-style: italic;
+		}
+		mark {
+		  background-color: #ff0;
+		  color: #000;
+		}
+		small {
+		  font-size: 80%;
+		}
+		sub,
+		sup {
+		  font-size: 75%;
+		  line-height: 0;
+		  position: relative;
+		  vertical-align: baseline;
+		}
+		sub {
+		  bottom: -0.25em;
+		}
+		sup {
+		  top: -0.5em;
+		}
+		audio,
+		video {
+		  display: inline-block;
+		}
+		audio:not([controls]) {
+		  display: none;
+		  height: 0;
+		}
+		img {
+		  border-style: none;
+		}
+		svg:not(:root) {
+		  overflow: hidden;
+		}
+		button,
+		input,
+		optgroup,
+		select,
+		textarea {
+		  font-family: sans-serif;
+		  font-size: 100%;
+		  line-height: 1.15;
+		  margin: 0;
+		}
+		button,
+		input {
+		  overflow: visible;
+		}
+		button,
+		select {
+		  text-transform: none;
+		}
+		button,
+		html [type="button"],
+		[type="reset"],
+		[type="submit"] {
+		  -webkit-appearance: button;
+		}
+		button::-moz-focus-inner,
+		[type="button"]::-moz-focus-inner,
+		[type="reset"]::-moz-focus-inner,
+		[type="submit"]::-moz-focus-inner {
+		  border-style: none;
+		  padding: 0;
+		}
+		button:-moz-focusring,
+		[type="button"]:-moz-focusring,
+		[type="reset"]:-moz-focusring,
+		[type="submit"]:-moz-focusring {
+		  outline: 1px dotted ButtonText;
+		}
+		fieldset {
+		  border: 1px solid #c0c0c0;
+		  margin: 0 2px;
+		  padding: 0.35em 0.625em 0.75em;
+		}
+		legend {
+		  box-sizing: border-box;
+		  color: inherit;
+		  display: table;
+		  max-width: 100%;
+		  padding: 0;
+		  white-space: normal;
+		}
+		progress {
+		  display: inline-block;
+		  vertical-align: baseline;
+		}
+		textarea {
+		  overflow: auto;
+		}
+		[type="checkbox"],
+		[type="radio"] {
+		  box-sizing: border-box;
+		  padding: 0;
+		}
+		[type="number"]::-webkit-inner-spin-button,
+		[type="number"]::-webkit-outer-spin-button {
+		  height: auto;
+		}
+		[type="search"] {
+		  -webkit-appearance: textfield;
+		  outline-offset: -2px;
+		}
+		[type="search"]::-webkit-search-cancel-button,
+		[type="search"]::-webkit-search-decoration {
+		  -webkit-appearance: none;
+		}
+		::-webkit-file-upload-button {
+		  -webkit-appearance: button;
+		  font: inherit;
+		}
+		details,
+		menu {
+		  display: block;
+		}
+		summary {
+		  display: list-item;
+		}
+		canvas {
+		  display: inline-block;
+		}
+		template {
+		  display: none;
+		}
+		[hidden] {
+		  display: none;
+		}
+		.report-abuse{
+           height: 100%;
+           position: relative;
+           -webkit-perspective: 500px;
+                   perspective: 500px;
+        }
+        #report-abuse{
+            display: block;
+            padding: 2px;
+            max-width: 300px;
+            box-sizing: border-box;
+            height: 545px;
+            position: absolute;
+            top:0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            z-index: 5;
+        }
+        #report-abuse.__show{
+            -webkit-animation: Load 300ms ease-in forwards;
+                    animation: Load 300ms ease-in forwards
+        }
+        @-webkit-keyframes Load {
+          0% {
+              opacity: 0;
+              -webkit-transform: rotateX(-45deg);
+                      transform: rotateX(-45deg);
+          }
+          100% {
+              -webkit-transform: rotateX(0deg);
+                      transform: rotateX(0deg);
+              opacity: 1;
+          }
+        }
+        @keyframes Load {
+          0% {
+              opacity: 0;
+              -webkit-transform: rotateX(-45deg);
+                      transform: rotateX(-45deg);
+          }
+          100% {
+              -webkit-transform: rotateX(0deg);
+                      transform: rotateX(0deg);
+              opacity: 1;
+          }
+        }
+		.report-abuse__submit,
+		.report-abuse__input,
+		.report-abuse__textarea{
+			padding: 15px;
+			border: none;
+			border: 1px solid #ddd;
+			width: 100%;
+			display: block;
+			margin-bottom: 20px;
+			border-radius: 5px;
+			font-size: 16px;
+			resize: none;
+		}
+		.report-abuse__input::-webkit-input-placeholder{
+			font-weight: 200;
+		}
+		.report-abuse__input:-moz-placeholder{
+			font-weight: 200;
+		}
+		.report-abuse__input::-moz-placeholder{
+			font-weight: 200;
+		}
+		.report-abuse__input:-ms-input-placeholder{
+			font-weight: 200;
+		}
+		.report-abuse__textarea::-webkit-input-placeholder{
+			font-weight: 200;
+		}
+		.report-abuse__textarea:-moz-placeholder{
+			font-weight: 200;
+		}
+		.report-abuse__textarea::-moz-placeholder{
+			font-weight: 200;
+		}
+		.report-abuse__textarea:-ms-input-placeholder{
+			font-weight: 200;
+		}
+		.report-abuse__textarea{
+			height: 150px;
+		}
+		.report-abuse__submit{
+			transition: .3s all;
+			background: #1abc9c;
+			color: #fff;
+			font-size: 20px;
+    		font-weight: 200;
+			border-radius: 30px;
+			cursor: pointer;
+			outline: none;
+		}
+		.report-abuse__submit:hover{
+			background-color: #48c9b0;
+		}
+		.report-abuse__submit:active{
+			background: #16a085;
+		}
+        .report-abuse__submit:disabled{
+			background-color: rgba(72, 201, 176, 0.52)
+		}
+		.report-abuse__message__error,
+		.report-abuse__message__success{
+			text-align: center;
+			position: absolute;
+			display: block;
+			width: 100%;
+			padding: 15px;
+			top: -70px;
+			border-radius: 5px;
+			border: 1px solid;
+			font-weight: 200;
+			opacity: 0;
+			-webkit-transition: 0.3s ease all;
+			transition: 0.3s ease all;
+			opacity: 0;
+			-webkit-transform: translateY(10px);
+			        transform: translateY(10px);
+		}
+		.report-abuse__message__success.__show,
+		.report-abuse__message__error.__show{
+			opacity: 1;
+			-webkit-transform: translateY(0);
+			        transform: translateY(0);
+		}
+		.report-abuse__message__success{
+            text-align: center;
+            height: 50px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+			background-color: rgb(188, 245, 188);
+			border-color: rgb(124, 221, 119);
+			color: darkgreen;
+		}
+		.report-abuse__message__error{
+			background-color:rgb(255, 129, 129);
+			border-color:rgb(226, 83, 83);
+			color: #fff;
+		}
+		@media (max-width: 320px){
+			body{
+				padding: 0 10px;
+			}
+		}
+	</style>
+</head>
+<body>
+<div class="report-abuse">
+	<form name="report-abuse" class="report-abuse__form" id="report-abuse">
+        <h1 style="text-align: center;font-weight: 200;" class="hide-after">Leave your message</h1>
+		<div class="report-abuse__message__success">
+                        Thank you. Your message has been sent. We will contact you soon.
+                        <!--Your ticket #<span class="report-abuse__message__text"></span>-->
+		</div>
+		<div class="report-abuse__message__error">
+			Error: <span class="report-abuse__error__text"></span>
+		</div>
+        <input type="text" name="name" placeholder="Name" class="report-abuse__input hide-after" required>
+		<input type="email" name="email" placeholder="Email" class="report-abuse__input hide-after" required>
+		<input type="tel" placeholder="Phone" name="phone" class="report-abuse__input hide-after" required>
+		<textarea name="body" placeholder="Message" class="report-abuse__textarea hide-after"></textarea>
+        <div id="captcha_container" class="hide-after" style="margin-bottom: 20px"></div>
+		<input type="submit" value="Send" class="report-abuse__submit hide-after">
+	</form>
+</div>
+<script>
+
+        var captchaContainer = null;
+        var sitekey = '6Lcbsh0UAAAAAGTs3HH6DPi-in_GZ2QYXuOrQFKZ';
+        var noRobot = true;
+        var onloadCallback = function() {
+          captchaContainer = grecaptcha.render('captcha_container', {
+            'sitekey' : sitekey,
+            'callback' : function(response) {
+                if(response.length){
+                    noRobot = true;
+                }
+            }
+          });
+        };
+
+		var feedback = (function(){
+
+			var form = $('#report-abuse'),
+				msgContainerSuccess = $('.report-abuse__message__success'),
+				msgContainerError = $('.report-abuse__message__error'),
+                submitBtn = $('.report-abuse__submit'),
+                hideAfterSubmit = form.find('.hide-after');
+
+			function showMessage(msg, type){
+				if(type === 'success'){
+					msgContainerSuccess
+						.find('.report-abuse__message__text')
+						.text(msg);
+                    msgContainerError.removeClass('__show');
+					msgContainerSuccess
+						.addClass('__show');
+				}else{
+					msgContainerError
+                        .find('.report-abuse__error__text')
+                        .text(msg);
+					msgContainerError
+                        .addClass('__show');
+					msgContainerSuccess.removeClass('__show')
+				}
+			}
+
+			function submitHandler(e){
+				e.preventDefault();
+				var $this = $(this),
+					$data = $(this).serialize();
+				    $data += '&landing_referrer=' + document.referrer || 'none';
+
+                    submitBtn.prop('disabled', true);
+                    if(noRobot){
+                        $.ajax({
+                            url:'/feedback.php',
+                            method: 'POST',
+                            data: $data
+                        })
+                        .success(function(response){
+                            var msg = response.ticket_id;
+                            hideAfterSubmit.hide();
+                            showMessage(msg, 'success');
+                        })
+                        .error(function(response){
+                            var msg = 'Error';
+                            if (response && response.responseJSON && response.responseJSON.message)
+                                msg = response.responseJSON.message;
+                            submitBtn.prop('disabled', false);
+                            showMessage(msg, 'error');
+                        })
+                    }else{
+                        var msg = 'Error';
+                        submitBtn.prop('disabled', false);
+                        showMessage(msg, 'error');
+                    }
+			}
+
+			return {
+				init: function(){
+					form.on('submit', submitHandler);
+				}
+			};
+
+		})();
+
+
+		$(document).ready(function(){
+			feedback.init();
+            $('#report-abuse').addClass('__show');
+		})
+
+</script>
+</body>
+</html>
